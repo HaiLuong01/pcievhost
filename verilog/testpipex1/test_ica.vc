@@ -16,4 +16,4 @@ test_defs.v
 ../../../vproc/f_VProc.v
 
 // Top level test module
-test.v
+test_mac.v

@@ -30,7 +30,7 @@
 module pcieVHostPipex1
 #(parameter NodeNum   = 8,
             EndPoint  = 1,
-            DataWidth = 8  // 8, 16, 32 or 64 only
+            DataWidth = 64  // 8, 16, 32 or 64 only
 )
 (
   input                          pcieclk, // For GEN1 = 250MHz, for GEN2 = 500MHz

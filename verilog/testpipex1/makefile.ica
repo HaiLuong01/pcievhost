@@ -52,11 +52,11 @@ PCIE_MAP_C     = pcie_vhost_map.h
 #
 # Flags for Icarus
 #
-PCIE_TOP       = test
+PCIE_TOP       = test_mac
 TOP_VC         = test_ica.vc
 HDRDIR         = ../headers
-VLOGFLAGS      = $(USRSIMFLAGS) -DDISP_LINK_WIDE -I$(VPROC_TOP) -c $(TOP_VC) -Ptest.VCD_DUMP=1
-VLOGDEBUGFLAGS = $(VLOGFLAGS) -Ptest.DEBUG_STOP=1
+VLOGFLAGS      = $(USRSIMFLAGS) -DDISP_LINK_WIDE -I$(VPROC_TOP) -c $(TOP_VC) -Ptest_mac.VCD_DUMP=1
+VLOGDEBUGFLAGS = $(VLOGFLAGS) -Ptest_mac.DEBUG_STOP=1
 
 #
 # Auto-generated verilog
@@ -155,11 +155,14 @@ $(VPROC_TOP):
 #
 # Build the verilog
 #
+#Verilog source
+VLOG_SRC = $(shell find ~/gatemate-pipe/src/mac_src/ -type f \( -iname \*.v -o -iname \*.sv \))
+
 verilog: $(PLI_SO) $(VLOGFILES) $(PCIE_MAP_V)
-	@iverilog -o $(SIMEXE) $(VLOGFLAGS) -s test
+	@iverilog -o $(SIMEXE) $(VLOGFLAGS) $(VLOG_SRC) -s test_mac
 
 verilog_debug: $(VLOGFILES) $(PCIE_MAP_V)
-	@iverilog -o $(SIMEXE)  $(VLOGDEBUGFLAGS) -s test
+	@iverilog -o $(SIMEXE)  $(VLOGDEBUGFLAGS) -s test_mac
 
 #------------------------------------------------------
 # EXECUTION RULES
@@ -203,7 +206,7 @@ help:
 
 clean: $(VPROC_TOP)
 	@$(MAKE) --no-print-directory -C $(PCIE_CLIB_DIR)  clean
-	@$(MAKE) --no-print-directory -f makefile.ica -C $(VPROC_TOP)/test TESTDIR=$(CURDIR) clean
+	@$(MAKE) --no-print-directory -f makefile.ica -C $(VPROC_TOP)/test_mac TESTDIR=$(CURDIR) clean
 	@rm -rf $(PLI_SO) $(PCIE_MAP_V) $(SIMEXE) obj
 
 

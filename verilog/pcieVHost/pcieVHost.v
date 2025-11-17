@@ -198,11 +198,11 @@ begin
 
         `PVH_STOP:    if (WE === 1'b1) $stop;
         `PVH_FINISH:  if (WE === 1'b1) $finish;
-        `PVH_FATAL:   if (WE === 1'b1) `fatal
+        //`PVH_FATAL:   if (WE === 1'b1) `fatal
         default:
         begin
             $display("%m: ***Error. PcieVhost---access to invalid address (%h) from VProc", Addr);
-            `fatal
+            //`fatal
         end
         endcase
     end
